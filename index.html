@@ -69,31 +69,42 @@
     <script>
         const grassBlock = document.getElementById('grassBlock');
         const scoreNumber = document.getElementById('scoreNumber');
-
+    
         // Функция для загрузки баланса из Local Storage
-        function loadScore() {
-            const savedScore = localStorage.getItem('score');
+        function loadScore(userId) {
+            const savedScore = localStorage.getItem(userId);
             return savedScore ? parseInt(savedScore, 10) : 0;
         }
-
+    
         // Функция для сохранения баланса в Local Storage
-        function saveScore(score) {
-            localStorage.setItem('score', score);
+        function saveScore(userId, score) {
+            localStorage.setItem(userId, score);
         }
-
-        let score = loadScore();
+    
+        // Функция для извлечения данных о пользователе из ссылки в телеграме
+        function getUserIdFromUrl() {
+            const url = window.location.href;
+            const params = new URLSearchParams(url.split('#')[1]);
+            return params.get('user');
+        }
+    
+        // Получаем идентификатор пользователя
+        const userId = getUserIdFromUrl();
+    
+        let score = loadScore(userId);
         scoreNumber.textContent = score;
-
+    
         grassBlock.addEventListener('click', () => {
             score++;
             scoreNumber.textContent = score;
-            saveScore(score);
-
+            saveScore(userId, score);
+    
             grassBlock.style.transform = 'scale(0.92)';
             setTimeout(() => {
                 grassBlock.style.transform = 'scale(1)';
             }, 200);
         });
     </script>
+    
 </body>
 </html>
