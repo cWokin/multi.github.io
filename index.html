@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <title>Multi</title>
+    <title>Кликабельная игра</title>
     <style>
         body {
             margin: 0;
@@ -32,6 +31,10 @@
             background-size: cover;
             cursor: pointer;
             transition: transform 0.2s;
+            outline: none;
+        }
+        #grassBlock:focus {
+            outline: none;
         }
         #score {
             display: flex;
@@ -48,6 +51,11 @@
             background-image: url('minecoin.png');
             background-size: cover;
         }
+        /* Отключение синей рамки на мобильных устройствах */
+        #grassBlock:active {
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
     </style>
 </head>
 <body>
@@ -56,7 +64,7 @@
             <div id="scoreNumber">0</div>
             <div id="minecoin"></div>
         </div>
-        <div id="grassBlock"></div>
+        <div id="grassBlock" tabindex="0"></div>
     </div>
 
     <script>
