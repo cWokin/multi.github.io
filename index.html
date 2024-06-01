@@ -69,12 +69,26 @@
     <script>
         const grassBlock = document.getElementById('grassBlock');
         const scoreNumber = document.getElementById('scoreNumber');
-        let score = 0;
+
+        // Функция для загрузки баланса из Local Storage
+        function loadScore() {
+            const savedScore = localStorage.getItem('score');
+            return savedScore ? parseInt(savedScore, 10) : 0;
+        }
+
+        // Функция для сохранения баланса в Local Storage
+        function saveScore(score) {
+            localStorage.setItem('score', score);
+        }
+
+        let score = loadScore();
+        scoreNumber.textContent = score;
 
         grassBlock.addEventListener('click', () => {
             score++;
             scoreNumber.textContent = score;
-            
+            saveScore(score);
+
             grassBlock.style.transform = 'scale(0.92)';
             setTimeout(() => {
                 grassBlock.style.transform = 'scale(1)';
