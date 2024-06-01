@@ -17,6 +17,7 @@
             font-family: Arial, sans-serif;
             overflow: hidden;
             flex-direction: column;
+            position: relative;
         }
         #gameArea {
             display: flex;
@@ -51,6 +52,30 @@
             background-image: url('minecoin.png');
             background-size: cover;
         }
+        #energy {
+            position: absolute;
+            bottom: 20px;
+            text-align: center;
+        }
+        #energyText {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        #hungerBar {
+            display: flex;
+            justify-content: center;
+        }
+        .hungerIcon {
+            width: 32px;
+            height: 32px;
+            background-size: cover;
+        }
+        .hungerIcon.full {
+            background-image: url('full_hunger.png');
+        }
+        .hungerIcon.empty {
+            background-image: url('empty_hunger.png');
+        }
         #grassBlock:active {
             outline: none;
             -webkit-tap-highlight-color: transparent;
@@ -65,46 +90,96 @@
         </div>
         <div id="grassBlock" tabindex="0"></div>
     </div>
+    <div id="energy">
+        <div id="energyText">3/3</div>
+        <div id="hungerBar">
+            <div class="hungerIcon full"></div>
+            <div class="hungerIcon full"></div>
+            <div class="hungerIcon full"></div>
+            <div class="hungerIcon full"></div>
+            <div class="hungerIcon full"></div>
+            <div class="hungerIcon full"></div>
+            <div class="hungerIcon full"></div>
+            <div class="hungerIcon full"></div>
+            <div class="hungerIcon full"></div>
+            <div class="hungerIcon full"></div>
+        </div>
+    </div>
 
     <script>
         const grassBlock = document.getElementById('grassBlock');
         const scoreNumber = document.getElementById('scoreNumber');
-    
+        const energyText = document.getElementById('energyText');
+        const hungerBar = document.getElementById('hungerBar');
+
+        let score = loadScore();
+        let energy = loadEnergy();
+        let maxEnergy = 3;
+
+        scoreNumber.textContent = score;
+        updateEnergyDisplay();
+
+        grassBlock.addEventListener('click', () => {
+            if (energy > 0) {
+                score++;
+                energy--;
+                scoreNumber.textContent = score;
+                saveScore(score);
+                saveEnergy(energy);
+                updateEnergyDisplay();
+
+                grassBlock.style.transform = 'scale(0.92)';
+                setTimeout(() => {
+                    grassBlock.style.transform = 'scale(1)';
+                }, 200);
+            }
+        });
+
         // Функция для загрузки баланса из Local Storage
-        function loadScore(userId) {
-            const savedScore = localStorage.getItem(userId);
+        function loadScore() {
+            const savedScore = localStorage.getItem('score');
             return savedScore ? parseInt(savedScore, 10) : 0;
         }
-    
+
         // Функция для сохранения баланса в Local Storage
-        function saveScore(userId, score) {
-            localStorage.setItem(userId, score);
+        function saveScore(score) {
+            localStorage.setItem('score', score);
         }
-    
-        // Функция для извлечения данных о пользователе из ссылки в телеграме
-        function getUserIdFromUrl() {
-            const url = window.location.href;
-            const params = new URLSearchParams(url.split('#')[1]);
-            return params.get('user');
+
+        // Функция для загрузки энергии из Local Storage
+        function loadEnergy() {
+            const savedEnergy = localStorage.getItem('energy');
+            return savedEnergy ? parseInt(savedEnergy, 10) : 3;
         }
-    
-        // Получаем идентификатор пользователя
-        const userId = getUserIdFromUrl();
-    
-        let score = loadScore(userId);
-        scoreNumber.textContent = score;
-    
-        grassBlock.addEventListener('click', () => {
-            score++;
-            scoreNumber.textContent = score;
-            saveScore(userId, score);
-    
-            grassBlock.style.transform = 'scale(0.92)';
-            setTimeout(() => {
-                grassBlock.style.transform = 'scale(1)';
-            }, 200);
-        });
+
+        // Функция для сохранения энергии в Local Storage
+        function saveEnergy(energy) {
+            localStorage.setItem('energy', energy);
+        }
+
+        function updateEnergyDisplay() {
+            energyText.textContent = `${energy}/${maxEnergy}`;
+            const filledIcons = Math.round((energy / maxEnergy) * 10);
+            hungerBar.innerHTML = '';
+            for (let i = 0; i < 10; i++) {
+                const icon = document.createElement('div');
+                icon.classList.add('hungerIcon');
+                if (i < filledIcons) {
+                    icon.classList.add('full');
+                } else {
+                    icon.classList.add('empty');
+                }
+                hungerBar.appendChild(icon);
+            }
+        }
+
+        setInterval(() => {
+            if (energy < maxEnergy) {
+                energy++;
+                saveEnergy(energy);
+                updateEnergyDisplay();
+            }
+        }, 3000);
     </script>
-    
 </body>
 </html>
