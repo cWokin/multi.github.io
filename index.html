@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,7 +42,7 @@
             font-family: "Arial", sans-serif;
             flex-grow: 1;
             text-align: center;
-            margin-left: 1%;
+            margin-left: 0%;
         }
 
         .social-links {
@@ -124,8 +124,8 @@
         }
 
         .refresh-button img {
-            width: 96px;
-            height: 96px;
+            width: 90px;
+            height: 90px;
         }
 
         .server-status-container {
@@ -134,8 +134,60 @@
             right: 20px;
             text-align: center;
         }
+
+        footer {
+            width: 20%; 
+            margin: 0 auto;
+            text-align: center;
+            background-color: #191417;
+            padding: 10px 0;
+            box-shadow: 0px -8px 6px -6px rgba(0, 0, 0, 0.5), 
+                        8px 0px 6px -6px rgba(0, 0, 0, 0.5), 
+                        -8px 0px 6px -6px rgba(0, 0, 0, 0.5);
+            transform: translateY(105%);
+            border-radius: 10px;
+        }
+
+        .ip-address-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .ip-address-toggle {
+            display: inline-block;
+            cursor: pointer;
+            color: #ffffff;
+            border: 2px solid #C23983;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 26px;
+            margin-top: 16px;
+            transition: color 0.3s;
+
+        }
+
+        .ip-address-toggle:hover {
+            border: 2px solid #ffffff;
+            color: #C23983;
+        }
+
+        .ip-address-details {
+            display: none;
+            margin: 0 auto;
+            margin-top: 16px;
+            font-size: 24px;
+            color: #ffffff;
+            text-align: left;
+            transition: max-height 0.5s ease-in-out;
+            width: max-content;
+        }
+
+        .ip-address-details span {
+            font-weight: bold;
+        }
     </style>
 </head>
+
 <body>
     <div class="hide">
         <img src="https://raw.githubusercontent.com/cWokin/test/main/discord-hover.svg" alt="Discord">
@@ -158,6 +210,13 @@
     <main>
         <h1 class="serverStatus" id="serverStatus1"></h1>
         <a href="minecraft://?addExternalServer=§dCake§fWars|217.114.43.175:19137" class="play-button" target="_blank">Играть</a>
+        <div class="ip-address-container">
+            <div class="ip-address-toggle" onclick="toggleIPAddress()">IP адрес</div>
+            <div class="ip-address-details" id="ipAddressDetails">
+                <span>IP:</span> 217.114.43.175<br>
+                <span>Port:</span> 19137
+            </div>
+        </div>
     </main>
 
     <button class="refresh-button" id="refreshButton">
@@ -178,7 +237,7 @@
                     const version = data.Version;
 
                     const statusText1 = `Online: ${players}/${maxPlayers}`;
-                    const statusText2 = `Version: ${version}`;
+                    const statusText2 = `${version}`;
 
                     document.querySelector('#serverStatus1').innerHTML = statusText1;
                     document.querySelector('#serverStatus2').innerHTML = statusText2;
@@ -192,6 +251,31 @@
         document.getElementById('refreshButton').addEventListener('click', function() {
             location.reload();
         });
+
+        function toggleIPAddress() {
+            const details = document.getElementById('ipAddressDetails');
+            if (details.style.display === 'none' || details.style.display === '') {
+                details.style.display = 'block';
+                details.style.maxHeight = '100px';
+            } else {
+                details.style.display = 'none';
+                details.style.maxHeight = '0';
+            }
+        }
+
+        document.getElementById('ipAddressDetails').addEventListener('click', function() {
+            const ip = "217.114.43.175";
+            navigator.clipboard.writeText(ip).then(function() {
+                alert("IP скопирован: " + ip);
+            }, function() {
+                alert("Не удалось скопировать IP");
+            });
+        });
     </script>
+
+    <footer>
+        <p>by ouzcd</p>
+    </footer>
+
 </body>
 </html>
