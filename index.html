@@ -5,29 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <title>Grapix</title>
-</head>
-
-<style>
-
+    <title>CakeWars</title>
+    <style>
 body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-color: #1a1f1c;
+    background-color: #191417;
     color: #fff;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
-.hide
-{
+.hide {
     display: none;
 }
 
 .header-container {
-    background-color: #1a1f1c;
+    background-color: #191417;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -73,10 +69,6 @@ body {
 }
 
 .social-links a:nth-child(2):hover img {
-    content: url("https://raw.githubusercontent.com/cWokin/test/main/vk-hover.svg");
-}
-
-.social-links a:nth-child(3):hover img {
     content: url("https://raw.githubusercontent.com/cWokin/test/main/cart-hover.svg");
 }
 
@@ -91,104 +83,23 @@ main {
     padding: 30px 60px;
     font-size: 30px;
     background-color: transparent;
-    color: #4CAF50;
+    color: #C23983;
     text-decoration: none;
-    border: 2px solid #4CAF50;
+    border: 2px solid #C23983;
     border-radius: 15px;
     transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
 }
 
 .play-button:hover {
-    background-color: #4CAF50;
+    background-color: #C23983;
     color: #fff;
-    box-shadow: 0px 0px 20px rgba(76, 175, 80, 0.7);
+    box-shadow: 0px 0px 20px #C23983b3;
     transform: scale(1.05);
 }
 
-footer {
-    text-align: center;
-    background-color: #1a1f1c;
-    padding: 10px 0;
-    box-shadow: 0px -8px 6px -6px rgba(0, 0, 0, 0.5);
-    transform: translateY(100%);
+.serverStatus {
+    font-size: 28px;
 }
-
-.serverStatus
-{
-  font-size: 20px;
-}
-
-.container 
-{
-  display: flex;
-  justify-content: center;
-  margin: 20px;
-  
-}
-
-.hub 
-{
-  background-color: #1a1f1c;
-  width: 30%;
-  padding: 20px;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 20px;
-  box-sizing: border-box;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);  
-}
-
-.hub img 
-{
-      width: 100%;
-      height: auto;
-      aspect-ratio: 16/9;
-      object-fit: cover;
-      border-radius: 10px;
-}
-
-.hub .title 
-{
-      color: #ffffff;
-      font-size: 40px;
-      font-weight: bold;
-      margin-right: 20px;
-      margin-top: 0px;
-}
-
-.hub a 
-{
-      text-decoration: none;
-}
-
-.hub button 
-{
-  background-color: transparent;
-  color: #ffffff;
-  border: 2px solid #57a03a;
-  border-radius: 20px;
-  padding: 22px 36px;
-  font-size: 32px;
-  cursor: pointer;
-  transition: all 0.5s ease;
-}
-
-.hub button:hover 
-{
-  background-color:#4CAF50;
-  padding: 20px 40px;
-  border-color: #57a03a;
-  box-shadow: 0 0 20px rgba(87, 160, 58, 0.5);
-}
-
-.hub button:hover span 
-{
-  left: 0;
-  top: 0;
-}
-
 
 ::-webkit-scrollbar {
     width: 8px;
@@ -201,110 +112,79 @@ footer {
 
 ::-webkit-scrollbar-track {
     background-color: #14161515;
-}</style>
-<script>
-    var footer = document.querySelector('footer');
+}
 
-    window.addEventListener('scroll', function() {
-        var scrollY = window.scrollY || window.pageYOffset;
-        var footerOffset = footer.offsetTop;
-        var windowHeight = window.innerHeight;
+.refresh-button {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
 
-        if (scrollY + windowHeight >= footerOffset) {
-            footer.style.transform = 'translateY(0)';
-        } else {
-            footer.style.transform = 'translateY(100%)';
-        }
-    });
+.refresh-button img {
+    width: 96px;
+    height: 96px;
+}
+</style>
 
-
-</script>
-
+</head>
 
 <body>
-
-<div class="hide">
-<img src="https://raw.githubusercontent.com/cWokin/test/main/discord-hover.svg" alt="Discord">
-<img src="https://raw.githubusercontent.com/cWokin/test/main/vk-hover.svg" alt="VK">
-<img src="https://raw.githubusercontent.com/cWokin/test/main/cart-hover.svg" alt="Cart">
-</div>
+    <div class="hide">
+        <img src="https://raw.githubusercontent.com/cWokin/test/main/discord-hover.svg" alt="Discord">
+        <img src="https://raw.githubusercontent.com/cWokin/test/main/cart-hover.svg" alt="Cart">
+    </div>
 
     <header>
         <div class="header-container">
-            <div class="logo">
-                <img href="https://example.com" src="https://raw.githubusercontent.com/cWokin/test/main/logo.png" alt="Grapix Logo">
-            </div>
-            <div class="site-title">Grapix</div>
-            <div class="social-links">
-                <a href="https://example.com"><img src="https://raw.githubusercontent.com/cWokin/test/main/discord.svg" alt="Discord"></a>
-                <a href="https://example.com"><img src="https://raw.githubusercontent.com/cWokin/test/main/vk.svg" alt="VK"></a>
-                <a href="https://example.com"><img src="https://raw.githubusercontent.com/cWokin/test/main/cart.svg" alt="Cart"></a>
-            </div>
+    <div class="logo">
+        <img src="https://raw.githubusercontent.com/cWokin/test/main/logocw.png" alt="CakeWars Logo">
+    </div>
+    <div class="site-title">CakeWars</div>
+    <div class="social-links">
+        <a href="https://discord.gg/grKyMJcAba"><img src="https://raw.githubusercontent.com/cWokin/test/main/discord.svg" alt="Discord"></a>
+        <a href="https://cakewars.trademc.org/"><img src="https://raw.githubusercontent.com/cWokin/test/main/cart.svg" alt="Cart"></a>
+    </div>
         </div>
     </header>
     
     <main>
-        <h1>Добро пожаловать на сервер Grapix!</h1>
-        <a href="https://example.com" class="play-button">Играть</a>
-    </main>
-
-    <div class="container">
-        <div class="hub">
-          <div style="flex: 1; position: relative; overflow: hidden; border-radius: 10px;">
-            <img src="https://tse4.mm.bing.net/th/id/OIG1.nwegMqCZELl4guyxR7q5?pid=ImgGn">
-          </div>
-          <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center; width: 100%;">
-            <div class="title">Hub 
-            </div>
-            <a href="https://example.com">
-              <button>
-                Играть
-              </button>
-            </a>
-          </div>
-        </div>
-      
-        <div class="hub">
-          <div style="flex: 1; position: relative; overflow: hidden; border-radius: 10px;">
-            <img src="https://tse3.mm.bing.net/th/id/OIG3.iqcQ.e1qgr7Ira5oxUgc?pid=ImgGn">
-          </div>
-          <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center; width: 100%;">
-            <div class="title">CakeWars
-                <p class="serverStatus" id="serverStatus1"></p>
-              <script>
+        <h1 class="serverStatus" id="serverStatus1">  </h1>
+        <script>
     function updateServerStatus() {
-              fetch('https://api.minetools.eu/query/217.114.43.175/19137')
-                  .then(response => response.json())
-                  .then(data => {
-                      // Extract the required values
-                      const players = data.Players;
-                      const maxPlayers = data.MaxPlayers;
-      
-                      const statusText = `Online: ${players}/${maxPlayers}`;
-      
-                      // Update the paragraph with the new text
-                      const serverStatus = document.querySelector('#serverStatus1');
-                      serverStatus.innerHTML = statusText;
-                  })
-                  .catch(error => console.error('Error fetching data:', error));
-                }
+        fetch('https://api.minetools.eu/query/217.114.43.175/19137')
+    .then(response => response.json())
+    .then(data => {
+        const players = data.Players;
+        const maxPlayers = data.MaxPlayers;
 
-        setInterval(updateServerStatus, 10000);
+        const statusText = `Online: ${players}/${maxPlayers}`;
+
+        const serverStatus = document.querySelector('#serverStatus1');
+        serverStatus.innerHTML = statusText;
+    })
+    .catch(error => console.error('Error fetching data:', error));
+    }
+
+    setInterval(updateServerStatus, 10000);
 
     updateServerStatus();
-              </script>
-            </div>
-            <a href="https://example.com">
-              <button>
-                Играть
-              </button>
-            </a>
-          </div>
-        </div>
-      </div>
+        </script>
+        
+        <a href="minecraft://?addExternalServer=§dCake§fWars|217.114.43.175:19137" class="play-button">Играть</a>
+    </main>
 
-    <footer>
-        <p>&copy; 2023 -⚰️ Grapix</p>
-    </footer>
+    <button class="refresh-button" id="refreshButton">
+        <img src="https://raw.githubusercontent.com/cWokin/test/main/refresh.png" alt="Обновить страницу">
+    </button>
+
+    <script>
+        document.getElementById('refreshButton').addEventListener('click', function() {
+    location.reload();
+});
+    </script>
 </body>
+
 </html>
