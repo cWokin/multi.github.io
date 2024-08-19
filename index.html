@@ -123,6 +123,10 @@
             cursor: pointer;
         }
 
+        .refresh-button:hover {
+          transform: scale(1.05);
+        }
+
         .refresh-button img {
             width: 90px;
             height: 90px;
@@ -182,9 +186,37 @@
             width: max-content;
         }
 
-        .ip-address-details span {
-            font-weight: bold;
+        .ip-address-details:hover {
+            transform: scale(1.05);
         }
+
+        .ip-address-copy {
+            color: green;
+            font-size: 18px;
+            text-align: right;
+        }
+#copyIP.green {
+    color: #23a458;
+}
+
+#copyIP.red {
+    color: #ef3f40;
+    animation: shake 0.5s infinite;
+}
+
+@keyframes shake {
+    0% { transform: translate(3px, 3px) rotate(0deg); }
+    10% { transform: translate(-3px, -4px) rotate(-2deg); }
+    20% { transform: translate(-6px, 0px) rotate(2deg); }
+    30% { transform: translate(6px, 4px) rotate(0deg); }
+    40% { transform: translate(3px, -3px) rotate(2deg); }
+    50% { transform: translate(-3px, 4px) rotate(-2deg); }
+    60% { transform: translate(-6px, 3px) rotate(0deg); }
+    70% { transform: translate(6px, 3px) rotate(-2deg); }
+    80% { transform: translate(-3px, -3px) rotate(2deg); }
+    90% { transform: translate(3px, 4px) rotate(0deg); }
+    100% { transform: translate(3px, -4px) rotate(-2deg); }
+}
     </style>
 </head>
 
@@ -197,7 +229,9 @@
     <header>
         <div class="header-container">
             <div class="logo">
+              <a href="https://youtu.be/dQw4w9WgXcQ" target="_blank">
                 <img src="https://raw.githubusercontent.com/cWokin/test/main/logocw.png" alt="CakeWars Logo">
+              </a>
             </div>
             <div class="site-title">CakeWars</div>
             <div class="social-links">
@@ -212,9 +246,10 @@
         <a href="minecraft://?addExternalServer=§dCake§fWars|217.114.43.175:19137" class="play-button" target="_blank">Играть</a>
         <div class="ip-address-container">
             <div class="ip-address-toggle" onclick="toggleIPAddress()">IP адрес</div>
-            <div class="ip-address-details" id="ipAddressDetails">
-                <span>IP:</span> 217.114.43.175<br>
-                <span>Port:</span> 19137
+            <div class="ip-address-details" id="ipAddressDetails" onclick="changeCopyIP()">
+                <b>IP:</b> cakewars.ru <br>
+                <b>Port:</b> 19137<br>
+                <div class="ip-address-copy" id="copyIP">↑ скопировать ↑</div>
             </div>
         </div>
     </main>
@@ -254,6 +289,7 @@
 
         function toggleIPAddress() {
             const details = document.getElementById('ipAddressDetails');
+
             if (details.style.display === 'none' || details.style.display === '') {
                 details.style.display = 'block';
                 details.style.maxHeight = '100px';
@@ -261,16 +297,74 @@
                 details.style.display = 'none';
                 details.style.maxHeight = '0';
             }
+            
+            document.getElementById("copyIP").classList.remove("red", "green");
+            document.getElementById("copyIP").innerHTML = "↑ скопировать ↑";
         }
 
         document.getElementById('ipAddressDetails').addEventListener('click', function() {
-            const ip = "217.114.43.175";
-            navigator.clipboard.writeText(ip).then(function() {
-                alert("IP скопирован: " + ip);
-            }, function() {
-                alert("Не удалось скопировать IP");
-            });
+            const ip = "cakewars.ru";
+            navigator.clipboard.writeText(ip);
         });
+
+
+        function changeCopyIP() {
+    var textElement = document.getElementById("copyIP");
+    var currentText = textElement.innerHTML;
+
+    textElement.classList.remove("red", "green");
+
+    switch(currentText) {
+        case "↑ скопировать ↑":
+            textElement.innerHTML = "Скопировано!";
+            textElement.classList.add("green");
+            break;
+        case "Скопировано!":
+            textElement.innerHTML = "Двойное копирование!";
+            textElement.classList.add("green");
+            break;
+        case "Двойное копирование!":
+            textElement.innerHTML = "Тройное копирование!";
+            textElement.classList.add("green");
+            break;
+        case "Тройное копирование!":
+            textElement.innerHTML = "Доминирование!";
+            textElement.classList.add("green");
+            break;
+        case "Доминирование!":
+            textElement.innerHTML = "Безумие!";
+            textElement.classList.add("green");
+            break;
+        case "Безумие!":
+            textElement.innerHTML = "Мегакопирование!";
+            textElement.classList.add("green");
+            break;
+        case "Мегакопирование!":
+            textElement.innerHTML = "Вас не остановить!";
+            textElement.classList.add("green");
+            break;
+        case "Вас не остановить!":
+            textElement.innerHTML = "Полный улёт!";
+            textElement.classList.add("green");
+            break;
+        case "Полный улёт!":
+            textElement.innerHTML = "Феноменально!";
+            textElement.classList.add("green");
+            break;
+        case "Феноменально!":
+            textElement.innerHTML = "БОЖЕСТВЕННО!!!";
+            textElement.classList.add("red");
+            break;
+        case "БОЖЕСТВЕННО!!!":
+            textElement.innerHTML = "ПРОСТО КОСМОС!!!";
+            textElement.classList.add("red");
+            break;
+        default:
+            textElement.innerHTML = "ПРОСТО КОСМОС!!!";
+            textElement.classList.add("red");
+            break;
+    }
+}
     </script>
 
     <footer>
